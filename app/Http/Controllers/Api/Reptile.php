@@ -6,6 +6,9 @@ use App\Http\Controllers\Controller;
 
 ######################################
 use App\Model\Reptile_model;
+
+#### USE composer require fabpot/goutte
+#### https://github.com/FriendsOfPHP/Goutte
 use Goutte\Client;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;

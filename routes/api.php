@@ -20,3 +20,8 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 ###
 Route::get('reptile', 'Api\Reptile@index')->name("Reptile.index");
+
+###
+Route::post('login', 'UserController@login')->name("UserController.login");
+###
+Route::post('register', 'UserController@registered')->name("UserController.registered");
