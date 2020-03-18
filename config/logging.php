@@ -15,18 +15,18 @@ return [
             'ignore_exceptions' => false,
         ],
 
-        // 'single'     => [
-        //     'driver' => 'single',
-        //     'path'   => storage_path('logs/laravel.log'),
-        //     'level'  => 'debug',
-        // ],
+        'single'     => [
+            'driver' => 'single',
+            'path'   => storage_path('logs/laravel.log'),
+            'level'  => 'debug',
+        ],
 
-        // 'daily'      => [
-        //     'driver' => 'daily',
-        //     'path'   => storage_path('logs/laravel.log'),
-        //     'level'  => 'debug',
-        //     'days'   => 14,
-        // ],
+        'daily'      => [
+            'driver' => 'daily',
+            'path'   => storage_path('logs/laravel.log'),
+            'level'  => 'debug',
+            'days'   => 14,
+        ],
 
         'slack'      => [
             'driver'   => 'slack',
@@ -70,9 +70,9 @@ return [
             'handler' => NullHandler::class,
         ],
 
-        // 'emergency'  => [
-        //     'path' => storage_path('logs/laravel.log'),
-        // ],
+        'emergency'  => [
+            'path' => storage_path('logs/laravel.log'),
+        ],
     ],
 
 ];
