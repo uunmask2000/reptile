@@ -62,7 +62,7 @@
         ],
         "post-install-cmd": [
             "php artisan clear-compiled",
-            "ll"
+            "sudo chmod -R 777 public/"
         ]
     }
 }
