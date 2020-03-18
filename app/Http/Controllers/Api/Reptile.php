@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 
 ######################################
+use App\Model\Reptile_model;
 use Goutte\Client;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -22,7 +23,7 @@ class Reptile extends Controller
      */
     public function index()
     {
-        // echo '123456';
+
         ### http: //astro.click108.com.tw/
         # http://astro.click108.com.tw/daily_{}.php?iAstro={}  0 - 11
         for ($i = 0; $i < 12; $i++) {
@@ -30,7 +31,10 @@ class Reptile extends Controller
             // $url = 'http://astro.click108.com.tw/daily_' . $i . '.php?iAstro=' . $i;
             ### 根據時間
             $url = 'http://astro.click108.com.tw/daily_' . $i . '.php?iAstro=' . $i . '.&iType=0&iAcDay=' . date("Y-m-d");
-            $this->single_reptile($url);
+
+            ### 丟給下一方法
+            $res = $this->single_reptile($url);
+            dump($res);
         }
 
     }
@@ -45,7 +49,7 @@ class Reptile extends Controller
      *
      * @return  [type]        [return description]
      */
-    public function single_reptile(string $url)
+    private function single_reptile(string $url)
     {
         $client  = new Client(HttpClient::create(['timeout' => 60]));
         $crawler = $client->request('GET', $url);
@@ -70,18 +74,11 @@ class Reptile extends Controller
         $data['career_fortune']  = $sss[4][0] . $sss[5][0];
         $data['luck_fortune']    = $sss[6][0] . $sss[7][0];
 
-        $reptile = DB::table('reptile')
-            ->where('today_date', $data['today_date'])
-            ->where('constellation_name', $data['constellation_name'])
-            ->get();
-        $reptile = json_decode(json_encode($reptile), 1);
-        ## 空白新增
-        if (empty($reptile)) {
-            // print_r($data);
-            DB::table('reptile')->insert($data);
-        } else {
-            print_r($data);
-        }
+        // 驗證請求...
+        $respone   = Reptile_model::firstOrCreate($data);
+        $ArrayData = json_decode(json_encode($respone), 1);
+
+        return $ArrayData;
 
     }
 
