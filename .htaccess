@@ -1,6 +1,21 @@
-## Redirect to public folder
 <IfModule mod_rewrite.c>
-    RewriteEngine on
-    RewriteRule ^$ public/ [L]
-    RewriteRule (.*) public/$1 [L]
+	<IfModule mod_negotiation.c>
+		Options -MultiViews
+	</IfModule>
+
+	RewriteEngine On
+
+	#直接訪問域名而沒有參數的情況下直接重寫到入口文件
+	RewriteCond %{REQUEST_URI} ^.?$
+	RewriteRule ^(.*)$ /public/index.php [L]
+
+	#如果public目錄下存在請求目錄或文件，重寫請求到實際目錄
+	RewriteCond %{DOCUMENT_ROOT}/public%{REQUEST_URI} -d [OR]
+	RewriteCond %{DOCUMENT_ROOT}/public%{REQUEST_URI} -f
+	RewriteRule ^(.*)$ /public/$1 [L]
+
+	#請求不存在的目錄或文件的情況下重寫到入口文件
+	RewriteCond %{REQUEST_FILENAME} !-d
+	RewriteCond %{REQUEST_FILENAME} !-f
+	RewriteRule ^ /public/index.php [L]
 </IfModule>
