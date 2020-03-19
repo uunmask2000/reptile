@@ -21,6 +21,7 @@
     -   登入
         -   路由:api/reptile
         -   敘述: 爬取星座資訊，並存入
+# JIM		
 
 ```
 路由配置
@@ -35,6 +36,5 @@ WEB
 網址 :
     ngrok/login
     ngrok/register
-    ngrok/api/reptile
-	~
+    ngrok/api/reptile	
 ```
